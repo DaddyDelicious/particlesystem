@@ -24,7 +24,7 @@ public:
 		radius = newRadius;
 	}
 
-protected:
+private:
 	vec2 position;
 	float radius;
 };

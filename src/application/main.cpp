@@ -8,6 +8,8 @@
 
 #include <fmt/format.h>
 
+#include <particlesystem/particle.h>
+
 // Simple random functions to get started
 // Random float (0,1)
 float rnd() { return rand() / static_cast<float>(RAND_MAX); }
@@ -36,6 +38,10 @@ int main(int, char**) try {
     float speed = 1.0f;
     bool running = true;
 
+    particle test;
+    test.setPos(glm::vec2{5.0f, 5.0f});
+
+    glm::vec4 färgTest = glm::vec4(1, 1, 1, 1);
     while (running) {
         window.beginFrame();
 
@@ -75,18 +81,22 @@ int main(int, char**) try {
         window.clear({0, 0, 0, 1});
 
         // Draw particles
-        window.drawPoints(position, size, color);
-
+        window.drawPoint(position[0], 50.0f, färgTest);
+       
+        // System::Windows::Forms::Control::MousePosition
         // UI
         {
+        
             window.beginGuiWindow("UI");
             window.text("I'm text!");
             window.sliderFloat("Speed", speed, 0.001f, 10.0f);
+            window.colorPicker("Välj", färgTest);
             if (window.button("Close application")) {
                 running = false;
             }
             window.endGuiWindow();
         }
+
 
         window.endFrame();
         running = running && !window.shouldClose();
