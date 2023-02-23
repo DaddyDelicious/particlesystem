@@ -38,10 +38,13 @@ int main(int, char**) try {
     float speed = 1.0f;
     bool running = true;
 
-    particle test;
-    test.setPos(glm::vec2{5.0f, 5.0f});
-
-    glm::vec4 färgTest = glm::vec4(1, 1, 1, 1);
+    Emitter testEmitter;
+    Particle testParticle;
+    testParticle.setRad(10.0f);
+    testEmitter.setPos(vec2(0.0f, 0.0f));
+    testEmitter.setParticle(testParticle);
+    testEmitter.emitterActive(true);
+    
     while (running) {
         window.beginFrame();
 
@@ -50,38 +53,43 @@ int main(int, char**) try {
         prevTime = t;
 
         // Create some global smooth rocking motion
-        const glm::vec2 vel =
+         /* const glm::vec2 vel =
             glm::vec2{static_cast<float>(std::cos(t)), -static_cast<float>(std::abs(std::sin(t)))} *
-            0.2f;
+            0.2f;*/
 
+      
+       
         {
             ZoneScopedN("Update particles");
 
             // Simulation dt may differ from actual dt based on the simulation speed
             const float sim_dt = static_cast<float>(dt) * speed;
 
-            for (size_t i = 0; i < num_particles; ++i) {
-                // Apply per particle jitter
-                const glm::vec2 jitter = glm::vec2(srnd(), srnd()) * 1.0f;
-                position[i] += (vel + jitter) * sim_dt;
-                color[i].a = std::min(color[i].a, lifetime[i]);  // Modify alpha based on lifetime
-                lifetime[i] -= sim_dt;
+            //for (size_t i = 0; i < num_particles; ++i) {
+            //    // Apply per particle jitter
+            //    const glm::vec2 jitter = glm::vec2(srnd(), srnd()) * 1.0f;
+            //    position[i] += (vel + jitter) * sim_dt;
+            //    color[i].a = std::min(color[i].a, lifetime[i]);  // Modify alpha based on lifetime
+            //    lifetime[i] -= sim_dt;
 
-                // Check lifetime and reset if needed
-                if (lifetime[i] < 0.0f) {
-                    position[i] = {srnd(), srnd()};
-                    color[i] = {rnd(), rnd(), rnd(), 1.0f};
-                    size[i] = {1.0f + rnd() * 9.0f};
-                    lifetime[i] = {0.5f + 2.0f * rnd()};
-                }
-            }
+            //    // Check lifetime and reset if needed
+            //    if (lifetime[i] < 0.0f) {
+            //        position[i] = {srnd(), srnd()};
+            //        color[i] = {rnd(), rnd(), rnd(), 1.0f};
+            //        size[i] = {1.0f + rnd() * 9.0f};
+            //        lifetime[i] = {0.5f + 2.0f * rnd()};
+            //    }
+            //}
         }
 
         // Clear screen with color
         window.clear({0, 0, 0, 1});
 
-        // Draw particles
-        window.drawPoint(position[0], 50.0f, färgTest);
+        
+        testEmitter.spawnParticles(window, dt * speed);
+
+
+
        
         // System::Windows::Forms::Control::MousePosition
         // UI
@@ -90,14 +98,16 @@ int main(int, char**) try {
             window.beginGuiWindow("UI");
             window.text("I'm text!");
             window.sliderFloat("Speed", speed, 0.001f, 10.0f);
-            window.colorPicker("Välj", färgTest);
+         
             if (window.button("Close application")) {
                 running = false;
             }
             window.endGuiWindow();
         }
 
-
+                
+        
+        
         window.endFrame();
         running = running && !window.shouldClose();
     }

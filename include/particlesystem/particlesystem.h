@@ -4,9 +4,11 @@
 #include <vector>
 #include <particlesystem/emitter.h>
 #include <particlesystem/effect.h>
+#include <particlesystem/particle.h>
 
-class particlesystem {
-protected:
-    std::vector<emitter> emitters;
-    std::vector<effect> effects;
+class Particlesystem {
+
+
+	
+   
 };
