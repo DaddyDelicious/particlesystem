@@ -4,23 +4,24 @@
 #include <particlesystem/particle.h>
 #include <rendering/window.h>
 #include <iostream>
+#include <tracy/Tracy.hpp>
 
-using vec2 = glm::vec2;
 class Emitter {
 
 public:
 
     Emitter() 
     {   
-        position = vec2{0.0f, 0.0f};
+        position = glm::vec2
+        {0.0f, 0.0f};
         spawnRate = 1.0f;
         time_since_last_spawn = 0.0f;
         spawnThis = Particle{};
         active = false;
-    
+        
     }
-    vec2 getPos() { return position; }
-    void setPos(vec2 newPos) { position = newPos; }
+    glm::vec2 getPos() { return position; }
+    void setPos(glm::vec2 newPos) { position = newPos; }
 
     void setSpawnRate(float spawnRateArg) { spawnRate = spawnRateArg; }
     void setParticle(Particle& particleRef) {
@@ -29,38 +30,39 @@ public:
     }
     void emitterActive(bool arg) { active = arg; }
 
-    void spawnParticles(rendering::Window& window, float dt) 
+    void spawnParticle(rendering::Window& window, float dt) 
     { 
-        time_since_last_spawn += dt;
-
+   
+       
         if (active) {
 
-            if (time_since_last_spawn > spawnRate) 
-            {
-                time_since_last_spawn = 0.0f;
-                
-                window.drawPoint(spawnThis.getPos(), spawnThis.getRad(), spawnThis.getColor());
-                glm::vec2 test = spawnThis.getPos();
-                std::cout << test.x << " " << test.y;
-                test.x += 0.05f;
-                spawnThis.setPos(test);
-             
-            }
+           
+               
+               
+              window.drawPoint(spawnThis.getPos(), spawnThis.getRad(), spawnThis.getColor());                    
+              glm::vec2 test = spawnThis.getPos();                   
+              test.x += 0.0001f;
+              spawnThis.setPos(test);
+              time_since_last_spawn = 0.0f;
+                   
+               
+            
 
-
+            
         }
 
-       
+        
     
     }
 
 private:
 
-    vec2 position;
+    glm::vec2 position;
     float spawnRate;
     float time_since_last_spawn;
     Particle spawnThis;
     bool active;
+   
 
 
 };
