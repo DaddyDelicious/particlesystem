@@ -12,12 +12,13 @@ public:
 
     Emitter() 
     {   
-        position = glm::vec2
-        {0.0f, 0.0f};
+        position = glm::vec2{0.0f, 0.0f};
         spawnRate = 1.0f;
         time_since_last_spawn = 0.0f;
         spawnThis = Particle{};
         active = false;
+        tempForce = 0.5f;
+        force = glm::vec2(0.2f, 0.4f);
         
     }
     glm::vec2 getPos() { return position; }
@@ -28,41 +29,63 @@ public:
         spawnThis = particleRef;
         spawnThis.setPos(position);
     }
-    void emitterActive(bool arg) { active = arg; }
 
-    void spawnParticle(rendering::Window& window, float dt) 
+    void setParticles(std::vector<Particle>& particlesArg) 
     { 
-   
-       
-        if (active) {
 
-           
-               
-               
-              window.drawPoint(spawnThis.getPos(), spawnThis.getRad(), spawnThis.getColor());                    
-              glm::vec2 test = spawnThis.getPos();                   
-              test.x += 0.0001f;
-              spawnThis.setPos(test);
-              time_since_last_spawn = 0.0f;
-                   
-               
-            
+        for (size_t i = 0; i < particlesArg.size(); i++) {
 
+            particlesArg[i].setPos(glm::vec2(0.0f, i/100.0f));
             
         }
 
+        particles = particlesArg;
         
     
     }
 
+    void emitterActive(bool arg) { active = arg; }
+
+    void spawnParticles(rendering::Window& window, float dt) {
+
+        if (active) {
+
+            for (size_t i = 0; i < particles.size(); i++) {
+
+                 window.drawPoint(particles[i].getPos(), particles[i].getRad(),
+                                 particles[i].getColor());
+
+                 this->updatePos(particles[i],dt);
+
+            }
+             
+           
+              time_since_last_spawn = 0.0f;
+        }
+    }
+
+    void updatePos(Particle& arg, float dt){
+    
+        arg.setAcc(glm::vec2(force.x / arg.getMass(),force.y/ arg.getMass()));
+        arg.setVel(glm::vec2(arg.getVel().x + arg.getAcc().x * dt, arg.getVel().y + arg.getAcc().y * dt));
+        glm::vec2 test = arg.getPos();
+        test.x +=  arg.getVel().x * dt;
+        test.y += arg.getVel().y * dt;
+        arg.setPos(test);
+    }
+
+
 private:
 
     glm::vec2 position;
+    glm::vec2 force;
     float spawnRate;
     float time_since_last_spawn;
     Particle spawnThis;
     bool active;
-   
+
+    float tempForce;
+    std::vector<Particle> particles;
 
 
 };

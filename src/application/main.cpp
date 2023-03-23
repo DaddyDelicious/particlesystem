@@ -22,7 +22,7 @@ int main(int, char**) try {
     rendering::Window window("Particle System v0.0.1 pre-release alpha", 850, 850);
 
     // --- EXAMPLE SNIPPET ---
-    const size_t num_particles = 1000;
+    const size_t num_particles = 100;
     std::vector<glm::vec2> position(num_particles);
     std::vector<float> size(num_particles);
     std::vector<glm::vec4> color(num_particles);
@@ -35,15 +35,27 @@ int main(int, char**) try {
         lifetime[i] = {0.5f + 2.0f * rnd()};     // Lifetime between (0.5-2.5) seconds
     }
 
+    std::vector<Particle> particles(num_particles);
+
+    for (int i = 0; i < particles.size(); i++) {
+
+        particles[i].setRad(size[i]);
+        particles[i].setColor(color[i]);
+        particles[i].setLifeTime(lifetime[i]);
+        
+    }
+ 
+
+
     double prevTime = 0.0;
     float speed = 1.0f;
     bool running = true;
 
-     Emitter testEmitter;
+    Emitter testEmitter;
     Particle testParticle;
     testParticle.setRad(10.0f);
-    testEmitter.setPos(vec2(0.5f, 0.5f));
-    testEmitter.setParticle(testParticle);
+    testEmitter.setPos(vec2(0.5f, 0.5f));    
+    testEmitter.setParticles(particles);
     testEmitter.emitterActive(true);
    
 
@@ -88,7 +100,7 @@ int main(int, char**) try {
         // Draw particles
          //window.drawPoint(testParticle.getPos(), testParticle.getRad(), testParticle.getColor());
         
-         testEmitter.spawnParticle(window,dt);
+         testEmitter.spawnParticles(window,dt);
 
         // UI
         {
