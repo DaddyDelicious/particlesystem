@@ -38,8 +38,10 @@ public:
         for (Particle e: particlesArg) {
 
             e.setPos(position);
+            particlesloaded.push_back(e);
         }
-        particlesloaded = particlesArg;       
+        
+             
     
     }
 
@@ -51,7 +53,7 @@ public:
 
     glm::vec2& getForce() { return force; }
 
-    void spawnParticle(int arg) {
+    void addParticle(int arg) {
         
         particles.push_back(particlesloaded[arg]);       
     }
@@ -68,11 +70,15 @@ public:
             }
 
             if (time_since_last_spawn > spawnRate) {
-                std::cout << counter;
+                
                 counter++;
-                spawnParticle(counter);
+               
+                if (counter > particlesloaded.size()-1) {
+                    counter = 0;
+                }
+                addParticle(counter);
                 time_since_last_spawn = 0.0f;
-                if (counter > particlesloaded.size()){counter = 0;}
+                
             }
         }
     }

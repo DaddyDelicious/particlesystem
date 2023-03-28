@@ -23,18 +23,18 @@ int main(int, char**) try {
 
     // --- EXAMPLE SNIPPET ---
     const size_t num_particles = 100;
-    std::vector<glm::vec2> position(num_particles);
+    //std::vector<glm::vec2> position(num_particles);
     std::vector<float> size(num_particles);
     std::vector<glm::vec4> color(num_particles);
     std::vector<float> lifetime(num_particles);
 
     for (size_t i = 0; i < num_particles; ++i) {
-        position[i] = {srnd(), srnd()};          // Position between (-1,1) = Screen extent
+       //position[i] = {srnd(), srnd()};          // Position between (-1,1) = Screen extent
         size[i] = {1.0f + rnd() * 9.0f};         // Radius between (1.0-10.0)
         color[i] = {rnd(), rnd(), rnd(), 0.5f};  // Color between (0-1) per channel, alpha = 0.5
         lifetime[i] = {0.5f + 2.0f * rnd()};     // Lifetime between (0.5-2.5) seconds
     }
-//
+
     std::vector<Particle> particles(num_particles);
     std::vector<Particle> particles1(num_particles);
 
@@ -45,12 +45,20 @@ int main(int, char**) try {
         particles[i].setLifeTime(lifetime[i]);
         
     }
+
+    for (int i = 0; i < particles1.size(); i++) {
+
+        particles1[i].setRad(10.0f);
+        particles1[i].setColor(color[i]);
+        particles1[i].setLifeTime(lifetime[i]);
+    }
  
-    particles1 = particles;
+   
 
     double prevTime = 0.0;
     float speed = 1.0f;
     bool running = true;
+    float spawnRate = 0.5f;
 
     Emitter testEmitter;
     Emitter test2Emitter;
@@ -59,7 +67,7 @@ int main(int, char**) try {
     testEmitter.setParticles(particles);
     testEmitter.emitterActive(true);
 
-    test2Emitter.setPos(vec2(2.0f, 2.0f));
+    test2Emitter.setPos(vec2(0.5f, 0.5f));
     test2Emitter.setParticles(particles1);
     test2Emitter.emitterActive(true);
 
@@ -104,7 +112,7 @@ int main(int, char**) try {
             //    }
             //}
         }
-
+        
         // Clear screen with color
         window.clear({0, 0, 0, 1});
 
@@ -112,6 +120,8 @@ int main(int, char**) try {
          //window.drawPoint(testParticle.getPos(), testParticle.getRad(), testParticle.getColor());
         
          //testEmitter.spawnParticles(window,dt);
+        test.emitters[0].setSpawnRate(spawnRate);
+        test.emitters[1].setSpawnRate(spawnRate);
         test.render(window, dt);
         
         // UI
@@ -119,6 +129,8 @@ int main(int, char**) try {
             window.beginGuiWindow("UI");
             window.text("I'm text!");
             window.sliderFloat("Speed", speed, 0.001f, 10.0f);
+            window.sliderFloat("SpawnRate", spawnRate, 0.001f, 1.0f);
+
             if (window.button("Close application")) {
                 running = false;
             }

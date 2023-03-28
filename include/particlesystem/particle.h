@@ -24,7 +24,7 @@ void setAcc(glm::vec2 ac) { acceleration = ac; }
 
 glm::vec2 getAcc() { return acceleration; }
 
-glm::vec2 getPos() { return position; }
+glm::vec2& getPos() { return position; }
 
 void setPos(glm::vec2 newPos) { position = newPos; }
 

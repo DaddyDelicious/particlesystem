@@ -8,6 +8,7 @@
 
 class Particlesystem {
 public:
+
     std::vector<Emitter> emitters;
     std::vector<effect> temp1;
    
@@ -20,9 +21,7 @@ public:
 
     void updatePos(Particle& arg, glm::vec2 force,  float dt) {
         arg.setAcc(glm::vec2(force.x / arg.getMass(), force.y / arg.getMass()));
-        arg.setVel(
-            glm::vec2(arg.getVel().x + arg.getAcc().x * dt, arg.getVel().y + arg.getAcc().y * dt));
-        glm::vec2 pos = arg.getPos() + arg.getVel() * dt;
-        arg.setPos(pos);
+        arg.setVel(glm::vec2(arg.getVel().x + arg.getAcc().x * dt, arg.getVel().y + arg.getAcc().y * dt));       
+        arg.setPos(glm::vec2(arg.getPos().x + arg.getVel().x * dt, arg.getPos().y + arg.getVel().y * dt));
     }
 };
