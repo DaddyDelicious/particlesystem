@@ -16,7 +16,7 @@ public:
     Emitter() 
     {   
         position = glm::vec2{0.0f, 0.0f};
-        spawnRate = 1.0f;
+        spawnRate = 0.4f;
         time_since_last_spawn = 0.0f;        
         active = false;       
         force = glm::vec2(0.2f, 0.4f);
@@ -55,19 +55,22 @@ public:
 
     void update(rendering::Window& window, float dt,auto& arg) {
         time_since_last_spawn += dt;
+        if (active) {
 
-        for (auto& particle : particles) {
-            window.drawPoint(particle.getPos(), particle.getRad(), particle.getColor());
-            arg.updatePos(particle, force, dt);
-            //this->updatePos(particle,
-            // emitter.getForce(), dt);
-        }
+            for (auto& particle : particles) {
+                window.drawPoint(particle.getPos(), particle.getRad(), particle.getColor());
+                arg.updatePos(particle, force, dt);
+                // this->updatePos(particle,
+                //  emitter.getForce(), dt);
+            }
 
-        if (time_since_last_spawn > 0.6f) {
-            std::cout << counter;
-            counter++;
-            spawnParticle(counter);
-            time_since_last_spawn = 0.0f;
+            if (time_since_last_spawn > spawnRate) {
+                std::cout << counter;
+                counter++;
+                spawnParticle(counter);
+                time_since_last_spawn = 0.0f;
+                if (counter > particlesloaded.size(){counter = 0;})
+            }
         }
     }
 
