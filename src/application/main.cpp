@@ -36,6 +36,7 @@ int main(int, char**) try {
     }
 //
     std::vector<Particle> particles(num_particles);
+    std::vector<Particle> particles1(num_particles);
 
     for (int i = 0; i < particles.size(); i++) {
 
@@ -45,7 +46,7 @@ int main(int, char**) try {
         
     }
  
-
+    particles1 = particles;
 
     double prevTime = 0.0;
     float speed = 1.0f;
@@ -54,12 +55,12 @@ int main(int, char**) try {
     Emitter testEmitter;
     Emitter test2Emitter;
     
-    testEmitter.setPos(vec2(0.5f, 0.5f));    
+    testEmitter.setPos(vec2(0.1f, 0.1f));    
     testEmitter.setParticles(particles);
     testEmitter.emitterActive(true);
 
     test2Emitter.setPos(vec2(0.5f, 0.5f));
-    test2Emitter.setParticles(particles);
+    test2Emitter.setParticles(particles1);
     test2Emitter.emitterActive(true);
 
     test2Emitter.setForce(glm::vec2(0.1f, -0.1f));

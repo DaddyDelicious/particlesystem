@@ -5,20 +5,24 @@
 #include <rendering/window.h>
 #include <iostream>
 #include <tracy/Tracy.hpp>
+#include <particlesystem/particle.h>
+#include <algorithm>
+#include <random>
 
 class Emitter {
-//
+
 public:
 
     Emitter() 
     {   
         position = glm::vec2{0.0f, 0.0f};
         spawnRate = 1.0f;
-        time_since_last_spawn = 0.0f;
-        spawnThis = Particle{};
+        time_since_last_spawn = 0.0f;        
         active = false;       
         force = glm::vec2(0.2f, 0.4f);
-        
+        particles = std::vector<Particle>{};
+        particlesloaded = std::vector<Particle>{};
+        counter = 0;
     }
     
     glm::vec2 getPos() { return position; }
@@ -32,7 +36,7 @@ public:
     void setParticles(std::vector<Particle> particlesArg) 
     { 
 
-        particles = particlesArg;       
+        particlesloaded = particlesArg;       
     
     }
 
@@ -44,17 +48,39 @@ public:
 
     glm::vec2& getForce() { return force; }
 
+    void spawnParticle(int arg) {
+        
+        particles.push_back(particlesloaded[arg]);       
+    }
 
-private:
+    void update(rendering::Window& window, float dt,auto& arg) {
+        time_since_last_spawn += dt;
 
+        for (auto& particle : particles) {
+            window.drawPoint(particle.getPos(), particle.getRad(), particle.getColor());
+            arg.updatePos(particle, force, dt);
+            //this->updatePos(particle,
+            // emitter.getForce(), dt);
+        }
+
+        if (time_since_last_spawn > 0.6f) {
+            std::cout << counter;
+            counter++;
+            spawnParticle(counter);
+            time_since_last_spawn = 0.0f;
+        }
+    }
+
+    private:
     glm::vec2 position;
     glm::vec2 force;
     float spawnRate;
     float time_since_last_spawn;
-    Particle spawnThis;
     bool active;
     std::vector<Particle> particles;
-
+    std::vector<Particle> particlesloaded;   
+    int counter;
+    //
 
 };
 
