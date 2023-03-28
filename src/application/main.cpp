@@ -59,11 +59,11 @@ int main(int, char**) try {
     testEmitter.setParticles(particles);
     testEmitter.emitterActive(true);
 
-    test2Emitter.setPos(vec2(0.5f, 0.5f));
+    test2Emitter.setPos(vec2(2.0f, 2.0f));
     test2Emitter.setParticles(particles1);
     test2Emitter.emitterActive(true);
 
-    test2Emitter.setForce(glm::vec2(0.1f, -0.1f));
+    test2Emitter.setForce(glm::vec2(-0.1f, -0.1f));
     
 
     Particlesystem test;

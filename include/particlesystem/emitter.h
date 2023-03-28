@@ -33,9 +33,12 @@ public:
 
     std::vector<Particle>& getParticles() { return particles; }
 
-    void setParticles(std::vector<Particle> particlesArg) 
+    void setParticles(std::vector<Particle>& particlesArg) 
     { 
+        for (Particle e: particlesArg) {
 
+            e.setPos(position);
+        }
         particlesloaded = particlesArg;       
     
     }
@@ -69,7 +72,7 @@ public:
                 counter++;
                 spawnParticle(counter);
                 time_since_last_spawn = 0.0f;
-                if (counter > particlesloaded.size(){counter = 0;})
+                if (counter > particlesloaded.size()){counter = 0;}
             }
         }
     }
