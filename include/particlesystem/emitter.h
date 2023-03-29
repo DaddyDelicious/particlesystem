@@ -19,7 +19,7 @@ public:
         spawnRate = 0.4f;
         time_since_last_spawn = 0.0f;        
         active = false;       
-        force = glm::vec2(0.2f, 0.4f);
+        force = glm::vec2(0.0f, 0.0f);
         particles = std::vector<Particle>{};
         particlesloaded = std::vector<Particle>{};
         counter = 0;
@@ -39,9 +39,7 @@ public:
 
             e.setPos(position);
             particlesloaded.push_back(e);
-        }
-        
-             
+        }       
     
     }
 
@@ -53,8 +51,9 @@ public:
 
     glm::vec2& getForce() { return force; }
 
-    void addParticle(int arg) {
-        
+    void addParticle(int arg) { 
+
+        particlesloaded[arg].setForce(force);
         particles.push_back(particlesloaded[arg]);       
     }
 
@@ -62,21 +61,16 @@ public:
         time_since_last_spawn += dt;
         if (active) {
 
-            //for (auto& particle : particles) {
-            //    window.drawPoint(particle.getPos(), particle.getRad(), particle.getColor());
-            //    //arg.updatePos(particle, force, dt);
-            //    // this->updatePos(particle,
-            //    //  emitter.getForce(), dt);
-            //}
-
             if (time_since_last_spawn > spawnRate) {
                 
                 counter++;
                
-                if (counter > particlesloaded.size()-1) {
-                    counter = 0;
-                }
-                addParticle(counter);
+                if (counter < particlesloaded.size()-1) {
+                    
+                    addParticle(counter);
+                    
+                } else { active = false; }
+               
                 time_since_last_spawn = 0.0f;
                 
             }

@@ -12,12 +12,11 @@ public:
         position = glm::vec2{0.0f, 0.0f};
         velocity = glm::vec2{0.0f, 0.0f};
         force = glm::vec2{0.0f, 0.0f};
-        mass = 1.0f;
+        mass = 5.0f;
         color = glm::vec4(1.0f, 1.0f, 1.0f, 0.5f);
         radius = 10.0f;
         lifeTime = 1.0f;
-       
-        
+         
     }
     
 void setAcc(glm::vec2 ac) { acceleration = ac; }
@@ -62,8 +61,7 @@ private:
     glm::vec2 velocity;    
     glm::vec2 force;
     float mass;
-    glm::vec4 color;
-    
+    glm::vec4 color;    
     float radius;
     float lifeTime;
 

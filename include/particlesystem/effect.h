@@ -6,9 +6,9 @@ using vec2 = glm::vec2;
 
 class effect {
 public:
-    void virtual applyEffect(Particle){};
+    
 
-	vec2 getPos() { 
+	vec2& getPos() { 
 		return position;
 	}
 

@@ -38,7 +38,7 @@ int main(int, char**) try {
     std::vector<Particle> particles(num_particles);
     std::vector<Particle> particles1(num_particles);
 
-    for (int i = 0; i < particles.size(); i++) {
+    for (size_t i = 0; i < particles.size(); i++) {
 
         particles[i].setRad(size[i]);
         particles[i].setColor(color[i]);
@@ -63,15 +63,15 @@ int main(int, char**) try {
     Emitter testEmitter;
     Emitter test2Emitter;
     
-    testEmitter.setPos(vec2(0.1f, 0.1f));    
+    testEmitter.setPos(vec2(-1.0f, 0.0f));    
     testEmitter.setParticles(particles);
     testEmitter.emitterActive(true);
+    testEmitter.setForce(vec2(30.0f, 0.0f));
 
-    test2Emitter.setPos(vec2(0.5f, 0.5f));
+    test2Emitter.setPos(vec2(1.0f, 0.0f));
     test2Emitter.setParticles(particles1);
     test2Emitter.emitterActive(true);
-
-    test2Emitter.setForce(glm::vec2(-0.1f, -0.1f));
+    test2Emitter.setForce(glm::vec2(-30.0f, 0.0f));
     
 
     Particlesystem test;
