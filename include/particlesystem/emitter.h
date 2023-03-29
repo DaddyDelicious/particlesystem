@@ -58,16 +58,16 @@ public:
         particles.push_back(particlesloaded[arg]);       
     }
 
-    void update(rendering::Window& window, float dt,auto& arg) {
+    void update(float dt) {
         time_since_last_spawn += dt;
         if (active) {
 
-            for (auto& particle : particles) {
-                window.drawPoint(particle.getPos(), particle.getRad(), particle.getColor());
-                arg.updatePos(particle, force, dt);
-                // this->updatePos(particle,
-                //  emitter.getForce(), dt);
-            }
+            //for (auto& particle : particles) {
+            //    window.drawPoint(particle.getPos(), particle.getRad(), particle.getColor());
+            //    //arg.updatePos(particle, force, dt);
+            //    // this->updatePos(particle,
+            //    //  emitter.getForce(), dt);
+            //}
 
             if (time_since_last_spawn > spawnRate) {
                 

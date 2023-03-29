@@ -122,7 +122,10 @@ int main(int, char**) try {
          //testEmitter.spawnParticles(window,dt);
         test.emitters[0].setSpawnRate(spawnRate);
         test.emitters[1].setSpawnRate(spawnRate);
+        
+       
         test.render(window, dt);
+         
         
         // UI
         {
