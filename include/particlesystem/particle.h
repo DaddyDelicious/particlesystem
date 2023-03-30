@@ -9,16 +9,19 @@ public:
     Particle() 
     { 
         acceleration = glm::vec2(0.0f, 0.0f);
-        position = glm::vec2{0.0f, 0.0f};
-        velocity = glm::vec2{0.0f, 0.0f};
-        force = glm::vec2{0.0f, 0.0f};
+        position = glm::vec2(0.0f, 0.0f);
+        velocity = glm::vec2(0.0f, 0.0f);
+        force = glm::vec2(0.0f, 0.0f);
         mass = 5.0f;
         color = glm::vec4(1.0f, 1.0f, 1.0f, 0.5f);
         radius = 10.0f;
-        lifeTime = 1.0f;
+        lifeTime = 100.0f;
+        alive = true;
          
     }
     
+bool isAlive() { return alive;  }
+
 void setAcc(glm::vec2 ac) { acceleration = ac; }
 
 glm::vec2 getAcc() { return acceleration; }
@@ -36,7 +39,7 @@ glm::vec2 getForce() { return force; }
 void setForce(glm::vec2 newForce) { force = newForce; }
 
 void setMass(float newMass) {mass = newMass;}
-
+//
 float getMass() { return mass; }
 
 void setLifeTime(float newLife) { lifeTime = newLife; }
@@ -51,7 +54,17 @@ glm::vec4 getColor() { return color; }
 
 void setColor(glm::vec4 colorArg) { color = colorArg; }
 
+void killPart(float dt) 
+{        
 
+    lifeTime -= dt;
+
+    if (lifeTime < 0) {
+
+       alive = false;
+    } 
+    
+}
 
 
 private:
@@ -64,6 +77,7 @@ private:
     glm::vec4 color;    
     float radius;
     float lifeTime;
+    bool alive;
 
  
 };

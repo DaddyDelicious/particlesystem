@@ -9,14 +9,20 @@
 #include <algorithm>
 #include <random>
 
+
+
 class Emitter {
 
 public:
+    float rnd() { return rand() / static_cast<float>(RAND_MAX); }
+
+    // Random float (-1,1)
+    float srnd() { return rnd() * 2.0f - 1.0f; }
 
     Emitter() 
     {   
         position = glm::vec2{0.0f, 0.0f};
-        spawnRate = 0.4f;
+        spawnRate = 0.04f;
         time_since_last_spawn = 0.0f;        
         active = false;       
         force = glm::vec2(0.0f, 0.0f);
@@ -32,7 +38,7 @@ public:
     void setSpawnRate(float spawnRateArg) { spawnRate = spawnRateArg; }
 
     std::vector<Particle>& getParticles() { return particles; }
-
+  
     void setParticles(std::vector<Particle>& particlesArg) 
     { 
         for (Particle e: particlesArg) {
@@ -51,10 +57,27 @@ public:
 
     glm::vec2& getForce() { return force; }
 
+  
     void addParticle(int arg) { 
 
-        particlesloaded[arg].setForce(force);
-        particles.push_back(particlesloaded[arg]);       
+        /*float spreadX = srnd();
+        float spreadY = srnd();
+        
+        glm::vec2 forceTest(spreadX, spreadY);*/
+
+        for (size_t i = 0; i < particlesloaded.size(); i++) {
+            float spreadX = srnd();
+            float spreadY = srnd();
+
+            glm::vec2 forceTest(spreadX, spreadY);
+
+            particlesloaded[i].setForce(forceTest);
+            particles.push_back(particlesloaded[i]); 
+
+        }
+
+
+              
     }
 
     void update(float dt) {
@@ -89,5 +112,7 @@ public:
     //
 
 };
+
+
 
 
