@@ -10,67 +10,31 @@
 
 #include <particlesystem/particle.h>
 #include <particlesystem/emitter.h>
-
+//
 // Simple random functions to get started
 // Random float (0,1)
-float rnd() { return rand() / static_cast<float>(RAND_MAX); }
-
-// Random float (-1,1)
-float srnd() { return rnd() * 2.0f - 1.0f; }
+//float rnd() { return rand() / static_cast<float>(RAND_MAX); }
+//
+//// Random float (-1,1)
+//float srnd() { return rnd() * 2.0f - 1.0f; }
 
 int main(int, char**) try {
     rendering::Window window("Particle System v0.0.1 pre-release alpha", 850, 850);
 
-    // --- EXAMPLE SNIPPET ---
-    const size_t num_particles = 100;
-    //std::vector<glm::vec2> position(num_particles);
-    std::vector<float> size(num_particles);
-    std::vector<glm::vec4> color(num_particles);
-    std::vector<float> lifetime(num_particles);
-
-    for (size_t i = 0; i < num_particles; ++i) {
-       //position[i] = {srnd(), srnd()};          // Position between (-1,1) = Screen extent
-        size[i] = {1.0f + rnd() * 9.0f};         // Radius between (1.0-10.0)
-        color[i] = {rnd(), rnd(), rnd(), 0.5f};  // Color between (0-1) per channel, alpha = 0.5
-        lifetime[i] = {0.5f + 2.0f * rnd()};     // Lifetime between (0.5-2.5) seconds
-    }
-     
-    std::vector<Particle> particles(num_particles);
-    std::vector<Particle> particles1(num_particles);
-
-    for (size_t i = 0; i < particles.size(); i++) {
-
-        particles[i].setRad(size[i]);
-        particles[i].setColor(color[i]);
-        //particles[i].setLifeTime(lifetime[i]);
-        
-    }
-
- 
- 
-   
 
     double prevTime = 0.0;
     float speed = 1.0f;
     bool running = true;
     float spawnRate = 0.5f;
 
-    Emitter testEmitter;
-    Emitter test2Emitter;
-    
-    testEmitter.setPos(vec2(0.0f, 0.0f));    
-    testEmitter.setParticles(particles);
-    testEmitter.emitterActive(true);
-    testEmitter.setForce(vec2(0.0f, 0.0f));
-
-    test2Emitter.setPos(vec2(1.0f, 0.0f));
-    test2Emitter.setParticles(particles1);
-    test2Emitter.emitterActive(true);
-    test2Emitter.setForce(glm::vec2(-30.0f, 0.0f));
-    
-
     Particlesystem test;
-    test.emitters.push_back(testEmitter);
+    test.addEmitter(1, glm::vec2(0.0f, -0.5f));
+    test.addEmitter(2, glm::vec2(-1.0f, 0.0f));
+    test.addEmitter(3, glm::vec2(0.0f, 0.0f));
+
+    //test.addEffect(1, glm::vec2(0.0f, 0.5f));
+    test.addEffect(2, glm::vec2(0.0f, 0.5f));
+    
     //test.emitters.push_back(test2Emitter);
     //
     while (running) {
@@ -111,13 +75,7 @@ int main(int, char**) try {
         // Clear screen with color
         window.clear({0, 0, 0, 1});
 
-        // Draw particles
-         //window.drawPoint(testParticle.getPos(), testParticle.getRad(), testParticle.getColor());
-        
-         //testEmitter.spawnParticles(window,dt);
-        test.emitters[0].setSpawnRate(spawnRate);
-        //test.emitters[1].setSpawnRate(spawnRate);
-        
+            
        
         test.render(window, dt);
          

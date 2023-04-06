@@ -2,7 +2,7 @@
 #include <glm/glm.hpp>
 #include <vector>
 //
-
+//
 class Particle {
 public: 
 
@@ -15,7 +15,7 @@ public:
         mass = 5.0f;
         color = glm::vec4(1.0f, 1.0f, 1.0f, 0.5f);
         radius = 10.0f;
-        lifeTime = 100.0f;
+        lifeTime = 50.0f;
         alive = true;
          
     }
@@ -85,3 +85,4 @@ private:
   
 
 
+//

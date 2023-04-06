@@ -9,15 +9,16 @@
 #include <algorithm>
 #include <random>
 
+////
+float rnd() { return rand() / static_cast<float>(RAND_MAX); }
 
+// Random float (-1,1)
+float srnd() { return rnd() * 2.0f - 1.0f; }
 
 class Emitter {
 
 public:
-    float rnd() { return rand() / static_cast<float>(RAND_MAX); }
-
-    // Random float (-1,1)
-    float srnd() { return rnd() * 2.0f - 1.0f; }
+    
 
     Emitter() 
     {   
@@ -39,7 +40,7 @@ public:
 
     std::vector<Particle>& getParticles() { return particles; }
   
-    void setParticles(std::vector<Particle>& particlesArg) 
+    void setParticles(std::vector<Particle> particlesArg) 
     { 
         for (Particle e: particlesArg) {
 
@@ -57,30 +58,15 @@ public:
 
     glm::vec2& getForce() { return force; }
 
+
   
-    void addParticle(int arg) { 
+   virtual void addParticle(int arg)  {
 
-        /*float spreadX = srnd();
-        float spreadY = srnd();
-        
-        glm::vec2 forceTest(spreadX, spreadY);*/
-
-        for (size_t i = 0; i < particlesloaded.size(); i++) {
-            float spreadX = srnd();
-            float spreadY = srnd();
-
-            glm::vec2 forceTest(spreadX, spreadY);
-
-            particlesloaded[i].setForce(forceTest);
-            particles.push_back(particlesloaded[i]); 
-
-        }
-
-
-              
+        particlesloaded[arg].setForce(force);
+        particles.push_back(particlesloaded[arg]);
     }
 
-    void update(float dt) {
+    virtual void update(float dt)  {
         time_since_last_spawn += dt;
         if (active) {
 
@@ -92,7 +78,9 @@ public:
                     
                     addParticle(counter);
                     
-                } else { active = false; }
+                } else {
+                    counter = 0;
+                }  // active = false; }
                
                 time_since_last_spawn = 0.0f;
                 
@@ -100,7 +88,7 @@ public:
         }
     }
 
-    private:
+    protected:
     glm::vec2 position;
     glm::vec2 force;
     float spawnRate;
