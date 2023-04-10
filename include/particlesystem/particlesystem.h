@@ -6,79 +6,52 @@
 #include <particlesystem/particle.h>
 #include "../../../build/ExplosionE.h"
 #include "../../../build/UniformE.h"
-
-#include <memory>
 #include "../../../build/ConeE.h"
 #include "../../../build/EffectB.h"
 #include "../../../build/EffectW.h"
-//
+#include <rendering/window.h>
+#include <memory>
 
 class Particlesystem {
 public:
-
-     
-    void addEmitter(int arg, glm::vec2 position ) {
-		
-        if (arg == 1) {
-
-            std::shared_ptr<ExplosionE> e = std::make_shared<ExplosionE>();
-            e->setPos(position);
-            e->emitterActive(true);
-            e->setParticles(createParticles());
-            emitters.push_back(e);
-           
-
-        } else if (arg == 2) 
-        {
-            std::shared_ptr<UniformE> e = std::make_shared<UniformE>();
-            e->setPos(position);
-            e->emitterActive(true);
-            e->setParticles(createParticles());
-            emitters.push_back(e);
-
-
-
-        } else if (arg == 3)
-        {
-            std::shared_ptr<ConeE> e = std::make_shared<ConeE>();
-            e->setPos(position);
-            e->emitterActive(true);
-            e->setParticles(createParticles());
-            emitters.push_back(e);
-
-
+    
+  void addEmitter(Emitter& emitter) {
+        if (auto explosionEmitter = dynamic_cast<ExplosionE*>(&emitter)) {
+            // 'emitter' is an instance of ExplosionE
+            std::shared_ptr<ExplosionE> explosionPtr(new ExplosionE(*explosionEmitter));
+            explosionPtr->setParticles(createParticles());
+            emitters.push_back(explosionPtr);
+        } else if (auto uniformEmitter = dynamic_cast<UniformE*>(&emitter)) {
+            // 'emitter' is an instance of UniformE
+            std::shared_ptr<UniformE> uniformPtr(new UniformE(*uniformEmitter));
+            uniformPtr->setParticles(createParticles());
+            emitters.push_back(uniformPtr);
+        } else if (auto coneEmitter = dynamic_cast<ConeE*>(&emitter)) {
+            // 'emitter' is an instance of ConeE
+            std::shared_ptr<ConeE> conePtr(new ConeE(*coneEmitter));
+            conePtr->setParticles(createParticles());
+            emitters.push_back(conePtr);
+        } else {
+            // 'emitter' is not an instance of any of the three classes
+            // do something else...
         }
-                        
-	}
+    }
 
-    void addEffect(int arg, glm::vec2 position) {
 
-        if (arg == 1) {
-
-            std::shared_ptr<EffectB> e = std::make_shared<EffectB>();
-            e->setPos(position);
-            // e->emitterActive(true);
-            // e->setParticles(createParticles());
-            effects.push_back(e);
+  void addEffect(Effect& effect) {
+        if (auto effectB = dynamic_cast<EffectB*>(&effect)) {
+            // 'effect' is an instance of EffectB
+            std::shared_ptr<EffectB> blackHolePointer(new EffectB(*effectB));
+            effects.push_back(blackHolePointer);
+        } else if (auto effectW = dynamic_cast<EffectW*>(&effect)) {
+            // 'effect' is an instance of EffectW
+            std::shared_ptr<EffectW> windPointer(new EffectW(*effectW));
+            effects.push_back(windPointer);
+        } else {
+            // 'effect' is not an instance of any known effect class
+            // do something else...
         }
-         else if (arg == 2) {
-            std::shared_ptr<EffectW> e = std::make_shared<EffectW>();
-            e->setPos(position);
-            //e->emitterActive(true);
-            //e->setParticles(createParticles());
-            effects.push_back(e);
-
-        } 
-         //else if (arg == 3) {
-        //    std::shared_ptr<ConeE> e = std::make_shared<ConeE>();
-        //    e->setPos(position);
-        //    e->emitterActive(true);
-        //    e->setParticles(createParticles());
-        //    effects.push_back(e);
-        //}
-        }
-
-   
+    }
     
     void render(rendering::Window& window, float dt) {
 
@@ -122,7 +95,7 @@ public:
     }
 
 
-    glm::vec2 calcExternalForces(Particle& p, float dt) 
+    glm::vec2 calcExternalForces(Particle& p) 
     {  
         glm::vec2 applyForce = glm::vec2{0.0f, 0.0f};
 

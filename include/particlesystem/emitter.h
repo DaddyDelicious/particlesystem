@@ -2,17 +2,12 @@
 #include <glm/glm.hpp>
 #include <vector>
 #include <particlesystem/particle.h>
-#include <rendering/window.h>
-#include <iostream>
-#include <tracy/Tracy.hpp>
-#include <particlesystem/particle.h>
 #include <algorithm>
 #include <random>
 
-////
+
 float rnd() { return rand() / static_cast<float>(RAND_MAX); }
 
-// Random float (-1,1)
 float srnd() { return rnd() * 2.0f - 1.0f; }
 
 class Emitter {
@@ -20,17 +15,17 @@ class Emitter {
 public:
     
 
-    Emitter() 
-    {   
-        position = glm::vec2{0.0f, 0.0f};
-        spawnRate = 0.04f;
-        time_since_last_spawn = 0.0f;        
-        active = false;       
-        force = glm::vec2(0.0f, 0.0f);
-        particles = std::vector<Particle>{};
-        particlesloaded = std::vector<Particle>{};
-        counter = 0;
-    }
+Emitter(glm::vec2 position = {0.0f, 0.0f}, glm::vec2 force = {0.0f, 0.0f} ,
+            float spawnRate = 0.04f        
+        ): position{position}
+        , spawnRate{spawnRate}
+        , time_since_last_spawn{0.0f}
+        , active{true}
+        , force{force}
+        , particles{}
+        , particlesloaded{}
+        , counter{0} {}
+
     
     glm::vec2 getPos() { return position; }
 
@@ -80,7 +75,7 @@ public:
                     
                 } else {
                     counter = 0;
-                }  // active = false; }
+                }  
                
                 time_since_last_spawn = 0.0f;
                 
