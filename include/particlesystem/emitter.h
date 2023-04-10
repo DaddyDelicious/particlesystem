@@ -4,11 +4,10 @@
 #include <particlesystem/particle.h>
 #include <algorithm>
 #include <random>
-//
 
-float rnd() { return rand() / static_cast<float>(RAND_MAX); }
+ float rnd() { return rand() / static_cast<float>(RAND_MAX); }
 
-float srnd() { return rnd() * 2.0f - 1.0f; }
+ float srnd() { return rnd() * 2.0f - 1.0f; }
 
 
 class Emitter {

@@ -32,11 +32,11 @@ int main(int, char**) try {
     
 
     particleSystem.addEmitter(emitter1);
-    //particleSystem.addEmitter(emitter2);
-    //particleSystem.addEmitter(emitter3);
+    particleSystem.addEmitter(emitter2);
+    particleSystem.addEmitter(emitter3);
   
     particleSystem.addEffect(effect1);
-    //particleSystem.addEffect(effect2);
+    particleSystem.addEffect(effect2);
    
    
  

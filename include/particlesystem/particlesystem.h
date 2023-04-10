@@ -15,8 +15,9 @@
 
 class Particlesystem {
 public:
-    
-void addEmitter(Emitter& emitter) {
+   
+
+    void addEmitter(Emitter& emitter) {
 
           //We use shared_ptr because of problem with object slicing. 
           //Not efficient because we use copyconstructor. Dunno how to fix it.
