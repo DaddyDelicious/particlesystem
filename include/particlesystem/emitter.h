@@ -10,11 +10,11 @@ float rnd() { return rand() / static_cast<float>(RAND_MAX); }
 
 float srnd() { return rnd() * 2.0f - 1.0f; }
 
+
 class Emitter {
 
 public:
     
-
     Emitter(glm::vec2 position = {0.0f, 0.0f}, glm::vec2 force = {0.0f, 0.0f} ,
             float spawnRate = 0.04f        
         ): position{position}
@@ -55,13 +55,13 @@ public:
 
 
   
-   virtual void addParticle(int arg)  {
+   virtual void addParticle(size_t arg)  {
 
         particlesloaded[arg].setForce(force);
         particles.push_back(particlesloaded[arg]);
     }
 
-    virtual void update(float dt)  {
+    virtual void update(const double dt) {
         time_since_last_spawn += dt;
         if (active) {
 
@@ -74,7 +74,7 @@ public:
                     addParticle(counter);
                     
                 } else {
-                    counter = 0;
+                    this->active = false;
                 }  
                
                 time_since_last_spawn = 0.0f;
@@ -87,11 +87,11 @@ public:
     glm::vec2 position;
     glm::vec2 force;
     float spawnRate;
-    float time_since_last_spawn;
+    double time_since_last_spawn;
     bool active;
     std::vector<Particle> particles;
     std::vector<Particle> particlesloaded;   
-    int counter;
+    size_t counter;
     //
 
 };

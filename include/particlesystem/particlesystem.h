@@ -12,6 +12,7 @@
 #include <rendering/window.h>
 #include <memory>
 
+
 class Particlesystem {
 public:
     
@@ -64,7 +65,7 @@ void addEmitter(Emitter& emitter) {
         }
     }
     
-    void render(rendering::Window& window, float dt) {
+    void render(rendering::Window& window, const double dt) {
         // iterate over all emitters
         for (auto& e : emitters) {
             // iterate over all particles in the current emitter
@@ -75,8 +76,7 @@ void addEmitter(Emitter& emitter) {
                 }
             }
             // update the current emitter's state
-            e->update(dt);
-            // update the position of the emitter
+            e->update(dt);            
             updatePos(dt);
         }
     }
@@ -85,17 +85,19 @@ void addEmitter(Emitter& emitter) {
 
     private:
 
-       void updatePos(float dt) {
+       void updatePos(const double dt) {
         // iterate over all emitters
         for (auto& e : emitters) {
             // iterate over all particles in the current emitter
             for (auto& p : e->getParticles()) {
                 // kill particle if it is no longer alive
                 p.killPart(dt);
+               
                 // if particle is still alive, update its position
                 if (p.isAlive()) {
                     // calculate external forces acting on the particle
                     glm::vec2 externalForces = calcExternalForces(p);
+                   
                     // update particle's force
                     p.setForce(p.getForce() + externalForces);
                     // update particle's acceleration
@@ -134,13 +136,13 @@ void addEmitter(Emitter& emitter) {
         // initialize vectors to store particle properties
         std::vector<float> size(num_particles);       // size of each particle
         std::vector<glm::vec4> color(num_particles);  // color of each particle
-        std::vector<float> lifetime(num_particles);   // lifetime of each particle
+       
 
         // generate random properties for each particle
         for (size_t i = 0; i < num_particles; ++i) {
             size[i] = {1.0f + rnd() * 9.0f};  // set radius between (1.0-10.0)
             color[i] = {rnd(), rnd(), rnd(), 0.5f};  // set color between (0-1) per channel, alpha = 0.5
-            lifetime[i] = {0.5f + 2.0f * rnd()};  // set lifetime between (0.5-2.5) seconds
+            
         }
 
         // create a vector to store the particles

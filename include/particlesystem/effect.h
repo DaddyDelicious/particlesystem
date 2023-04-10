@@ -15,8 +15,9 @@ public:
     
 	virtual glm::vec2 calculateForce(Particle& particle) {
                
-		return glm::vec2(0.0f, 0.0f);
-        }
+		return particle.getForce();
+    
+	}
 
 	glm::vec2& getForce() { return force; }
 
