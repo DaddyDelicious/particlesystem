@@ -10,7 +10,7 @@
 
 #include <particlesystem/particle.h>
 #include <particlesystem/emitter.h>
-
+//
 
 int main(int, char**) try {
     rendering::Window window("Particle System v0.0.1 pre-release alpha", 850, 850);
@@ -24,22 +24,24 @@ int main(int, char**) try {
     Particlesystem particleSystem;
 
     UniformE emitter1{glm::vec2{-0.9f,0.0f}};
-    ExplosionE emitter2{glm::vec2{0.0f, 0.0f}};
+    ExplosionE emitter2{glm::vec2{0.0f, -0.1f},false};
     ConeE emitter3{glm::vec2{0.0f, -0.5f}};
 
-    EffectB effect1{glm::vec2{0.0f, 0.0f}};
-    EffectW effect2{glm::vec2{0.0f, 1.0f}, glm::vec2{0.0f, -0.10f}};
+    EffectB effect1{glm::vec2{0.5f, -0.5f}};
+    EffectW effect2{glm::vec2{0.0f, 0.6f}, glm::vec2{0.0f, -0.00001f}};
     
 
     particleSystem.addEmitter(emitter1);
     particleSystem.addEmitter(emitter2);
     particleSystem.addEmitter(emitter3);
-   
+  
     particleSystem.addEffect(effect1);
     particleSystem.addEffect(effect2);
    
+   
  
     while (running) {
+
         window.beginFrame();
 
         const double t = window.time();

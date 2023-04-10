@@ -1,7 +1,7 @@
 #pragma once
 #include <glm/glm.hpp>
 #include <particlesystem/particle.h>
-
+//
 
 
 class Effect {

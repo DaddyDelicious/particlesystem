@@ -2,7 +2,7 @@
 #include <glm/glm.hpp>
 #include <vector>
 //
-//
+////
 class Particle {
 public: 
 
@@ -39,7 +39,7 @@ glm::vec2 getForce() { return force; }
 void setForce(glm::vec2 newForce) { force = newForce; }
 
 void setMass(float newMass) {mass = newMass;}
-//
+
 float getMass() { return mass; }
 
 void setLifeTime(float newLife) { lifeTime = newLife; }

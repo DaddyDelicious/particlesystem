@@ -4,7 +4,7 @@
 #include <particlesystem/particle.h>
 #include <algorithm>
 #include <random>
-
+//
 
 float rnd() { return rand() / static_cast<float>(RAND_MAX); }
 
@@ -15,7 +15,7 @@ class Emitter {
 public:
     
 
-Emitter(glm::vec2 position = {0.0f, 0.0f}, glm::vec2 force = {0.0f, 0.0f} ,
+    Emitter(glm::vec2 position = {0.0f, 0.0f}, glm::vec2 force = {0.0f, 0.0f} ,
             float spawnRate = 0.04f        
         ): position{position}
         , spawnRate{spawnRate}
