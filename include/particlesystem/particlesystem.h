@@ -4,11 +4,11 @@
 #include <particlesystem/emitter.h>
 #include <particlesystem/effect.h>
 #include <particlesystem/particle.h>
-#include "../../../build/ExplosionE.h"
-#include "../../../build/UniformE.h"
-#include "../../../build/ConeE.h"
-#include "../../../build/EffectB.h"
-#include "../../../build/EffectW.h"
+#include <particlesystem/ExplosionE.h>
+#include <particlesystem/UniformE.h>
+#include <particlesystem/ConeE.h>
+#include <particlesystem/EffectB.h>
+#include <particlesystem/EffectW.h>
 #include <rendering/window.h>
 #include <memory>
 

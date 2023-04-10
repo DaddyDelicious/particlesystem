@@ -59,7 +59,7 @@ void killPart(double dt)
 
     if (lifeTime < 0) {
 
-       delete this;
+       alive = false;
     } 
     
 }

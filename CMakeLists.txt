@@ -77,17 +77,25 @@ target_link_libraries(rendering
 set(HEADER_FILES
   include/particlesystem/particlesystem.h
   include/particlesystem/emitter.h
-  include/particlesystem/effect.h
+  include/particlesystem/effect.h  
+  include/particlesystem/effectW.h
+  include/particlesystem/effectB.h
+  include/particlesystem/ConeE.h
+  include/particlesystem/ExplosionE.h
   include/particlesystem/particle.h
-  include/particlesystem/effect_wind.h
+  include/particlesystem/UniformE.h
   # ADD HEADER FILES HERE
 )
 set(SOURCE_FILES
-  src/particlesystem/particlesystem.cpp
+src/particlesystem/particlesystem.cpp
   src/particlesystem/emitter.cpp
   src/particlesystem/particle.cpp
-  src/particlesystem/effect.cpp
-  src/particlesystem/effect_wind.cpp
+  src/particlesystem/effect.cpp  
+  src/particlesystem/ConeE.cpp
+  src/particlesystem/EffectB.cpp
+  src/particlesystem/EffectW.cpp
+  src/particlesystem/ExplosionE.cpp
+  src/particlesystem/UniformE.cpp
   # ADD SOURCE FILES HERE
 )
 
