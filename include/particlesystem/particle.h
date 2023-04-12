@@ -13,7 +13,7 @@ public:
         , mass(5.0f)
         , color(1.0f, 1.0f, 1.0f, 0.5f)
         , radius(10.0f)
-        , lifeTime(2.0f)
+        , lifeTime(20.0f)
         , alive(true) {}
 
     
