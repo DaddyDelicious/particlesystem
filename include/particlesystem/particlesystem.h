@@ -18,54 +18,17 @@ public:
    
 
     void addEmitter(Emitter* emitter) {
+
         emitter->setParticles(createParticles());
         emitters.push_back(emitter);
-        //  //We use shared_ptr because of problem with object slicing. 
-        //  //Not efficient because we use copyconstructor. Dunno how to fix it.
-        //if (auto explosionEmitter = dynamic_cast<ExplosionE*>(&emitter)) {
-        //    // 'emitter' is an instance of ExplosionE
-        //    // create a new shared pointer to an ExplosionE object
-        //    std::shared_ptr<ExplosionE> explosionPtr(new ExplosionE(*explosionEmitter));
-        //    // set the particles for the new object
-        //    explosionPtr->setParticles(createParticles());
-        //    // add the new object to the emitters vector
-        //    emitters.push_back(explosionPtr);
 
-        //} else if (auto uniformEmitter = dynamic_cast<UniformE*>(&emitter)) {
-        //    //Same but for UniformE
-        //    std::shared_ptr<UniformE> uniformPtr(new UniformE(*uniformEmitter));           
-        //    uniformPtr->setParticles(createParticles());            
-        //    emitters.push_back(uniformPtr);
-
-        //} else if (auto coneEmitter = dynamic_cast<ConeE*>(&emitter)) {
-        //    //Same but for coneE
-        //    std::shared_ptr<ConeE> conePtr(new ConeE(*coneEmitter));          
-        //    conePtr->setParticles(createParticles());           
-        //    emitters.push_back(conePtr);
-
-        //} else {
-        //    // 'emitter' is not an instance of any of the three classes
-        //    // do something else...
-        //}
     }
 
 
 
   void addEffect(Effect* effect) {
-        effects.push_back(effect);
-        //if (auto effectB = dynamic_cast<EffectB*>(&effect)) {
-        //    //Works the same as addEmitter()
-        //    std::shared_ptr<EffectB> blackHolePointer(new EffectB(*effectB));
-        //    effects.push_back(blackHolePointer);
 
-        //} else if (auto effectW = dynamic_cast<EffectW*>(&effect)) {
-        //    
-        //    std::shared_ptr<EffectW> windPointer(new EffectW(*effectW));
-        //    effects.push_back(windPointer);
-        //} else {
-        //    // 'effect' is not an instance of any known effect class
-        //    // do something else...
-        //}
+        effects.push_back(effect);
     }
     
     void render(rendering::Window& window, const double dt) {
@@ -88,33 +51,32 @@ public:
 
     private:
 
-
        void updatePos(const double dt) {
         // iterate over all emitters
-            for (auto& e : emitters) {
-                // iterate over all particles in the current emitter
-                for (auto& p : e->getParticles()) {
-                    // kill particle if it is no longer alive
-                    p.killPart(dt);
+        for (auto& e : emitters) {
+            // iterate over all particles in the current emitter
+            for (auto& p : e->getParticles()) {
+                // kill particle if it is no longer alive
+                p.killPart(dt);
                
-                    // if particle is still alive, update its position
-                    if (p.isAlive()) {
-                        // calculate external forces acting on the particle
-                        glm::vec2 externalForces = calcExternalForces(p);
+                // if particle is still alive, update its position
+                if (p.isAlive()) {
+                    // calculate external forces acting on the particle
+                    glm::vec2 externalForces = calcExternalForces(p);
                    
-                        // update particle's force
-                        p.setForce(p.getForce() + externalForces);
-                        // update particle's acceleration
-                        p.setAcc(glm::vec2(p.getForce().x / p.getMass(), p.getForce().y / p.getMass()));
-                        // update particle's velocity
-                        p.setVel(glm::vec2(p.getVel().x + p.getAcc().x * dt,
-                                           p.getVel().y + p.getAcc().y * dt));
-                        // update particle's position
-                        p.setPos(glm::vec2(p.getPos().x + p.getVel().x * dt,
-                                           p.getPos().y + p.getVel().y * dt));
-                    }
+                    // update particle's force
+                    p.setForce(p.getForce() + externalForces);
+                    // update particle's acceleration
+                    p.setAcc(glm::vec2(p.getForce().x / p.getMass(), p.getForce().y / p.getMass()));
+                    // update particle's velocity
+                    p.setVel(glm::vec2(p.getVel().x + p.getAcc().x * dt,
+                                       p.getVel().y + p.getAcc().y * dt));
+                    // update particle's position
+                    p.setPos(glm::vec2(p.getPos().x + p.getVel().x * dt,
+                                       p.getPos().y + p.getVel().y * dt));
                 }
             }
+        }
         }
 
     //
@@ -135,7 +97,7 @@ public:
 
     std::vector<Particle> createParticles() {
         // set the number of particles to create
-        const size_t num_particles = 200;
+        const size_t num_particles = 100;
 
         // initialize vectors to store particle properties
         std::vector<float> size(num_particles);       // size of each particle
