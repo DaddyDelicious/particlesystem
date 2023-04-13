@@ -18,7 +18,7 @@ int main(int, char**) try {
     float speed = 1.0f;
     bool running = true;
     
-
+    
     Particlesystem particleSystem;
 
     UniformE* emitter1 = new UniformE{glm::vec2{-0.9f,0.0f}};

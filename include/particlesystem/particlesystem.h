@@ -91,30 +91,30 @@ public:
 
        void updatePos(const double dt) {
         // iterate over all emitters
-        for (auto& e : emitters) {
-            // iterate over all particles in the current emitter
-            for (auto& p : e->getParticles()) {
-                // kill particle if it is no longer alive
-                p.killPart(dt);
+            for (auto& e : emitters) {
+                // iterate over all particles in the current emitter
+                for (auto& p : e->getParticles()) {
+                    // kill particle if it is no longer alive
+                    p.killPart(dt);
                
-                // if particle is still alive, update its position
-                if (p.isAlive()) {
-                    // calculate external forces acting on the particle
-                    glm::vec2 externalForces = calcExternalForces(p);
+                    // if particle is still alive, update its position
+                    if (p.isAlive()) {
+                        // calculate external forces acting on the particle
+                        glm::vec2 externalForces = calcExternalForces(p);
                    
-                    // update particle's force
-                    p.setForce(p.getForce() + externalForces);
-                    // update particle's acceleration
-                    p.setAcc(glm::vec2(p.getForce().x / p.getMass(), p.getForce().y / p.getMass()));
-                    // update particle's velocity
-                    p.setVel(glm::vec2(p.getVel().x + p.getAcc().x * dt,
-                                       p.getVel().y + p.getAcc().y * dt));
-                    // update particle's position
-                    p.setPos(glm::vec2(p.getPos().x + p.getVel().x * dt,
-                                       p.getPos().y + p.getVel().y * dt));
+                        // update particle's force
+                        p.setForce(p.getForce() + externalForces);
+                        // update particle's acceleration
+                        p.setAcc(glm::vec2(p.getForce().x / p.getMass(), p.getForce().y / p.getMass()));
+                        // update particle's velocity
+                        p.setVel(glm::vec2(p.getVel().x + p.getAcc().x * dt,
+                                           p.getVel().y + p.getAcc().y * dt));
+                        // update particle's position
+                        p.setPos(glm::vec2(p.getPos().x + p.getVel().x * dt,
+                                           p.getPos().y + p.getVel().y * dt));
+                    }
                 }
             }
-        }
         }
 
     //

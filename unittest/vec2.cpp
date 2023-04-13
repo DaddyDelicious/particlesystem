@@ -3,6 +3,7 @@
 
 using vec2 = glm::vec2;
 
+// Task 9: "All tests completed successfully"
 TEST_CASE("Constructor", "[vec2]") {
     {
         // Default constructor

@@ -84,6 +84,7 @@ set(HEADER_FILES
   include/particlesystem/ExplosionE.h
   include/particlesystem/particle.h
   include/particlesystem/UniformE.h
+  include/particlesystem/SpiralE.h
   # ADD HEADER FILES HERE
 )
 set(SOURCE_FILES
@@ -96,6 +97,7 @@ src/particlesystem/particlesystem.cpp
   src/particlesystem/EffectW.cpp
   src/particlesystem/ExplosionE.cpp
   src/particlesystem/UniformE.cpp
+  src/particlesystem/SpiralE.cpp
   # ADD SOURCE FILES HERE
 )
 

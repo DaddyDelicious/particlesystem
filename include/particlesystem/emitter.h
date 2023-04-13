@@ -32,6 +32,7 @@ public:
 
     void setSpawnRate(float spawnRateArg) { spawnRate = spawnRateArg; }
 
+
     std::vector<Particle>& getParticles() { return particles; }
   
     void setParticles(std::vector<Particle> particlesArg) 
