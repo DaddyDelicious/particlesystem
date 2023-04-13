@@ -17,53 +17,55 @@ class Particlesystem {
 public:
    
 
-    void addEmitter(Emitter& emitter) {
+    void addEmitter(Emitter* emitter) {
+        emitter->setParticles(createParticles());
+        emitters.push_back(emitter);
+        //  //We use shared_ptr because of problem with object slicing. 
+        //  //Not efficient because we use copyconstructor. Dunno how to fix it.
+        //if (auto explosionEmitter = dynamic_cast<ExplosionE*>(&emitter)) {
+        //    // 'emitter' is an instance of ExplosionE
+        //    // create a new shared pointer to an ExplosionE object
+        //    std::shared_ptr<ExplosionE> explosionPtr(new ExplosionE(*explosionEmitter));
+        //    // set the particles for the new object
+        //    explosionPtr->setParticles(createParticles());
+        //    // add the new object to the emitters vector
+        //    emitters.push_back(explosionPtr);
 
-          //We use shared_ptr because of problem with object slicing. 
-          //Not efficient because we use copyconstructor. Dunno how to fix it.
-        if (auto explosionEmitter = dynamic_cast<ExplosionE*>(&emitter)) {
-            // 'emitter' is an instance of ExplosionE
-            // create a new shared pointer to an ExplosionE object
-            std::shared_ptr<ExplosionE> explosionPtr(new ExplosionE(*explosionEmitter));
-            // set the particles for the new object
-            explosionPtr->setParticles(createParticles());
-            // add the new object to the emitters vector
-            emitters.push_back(explosionPtr);
+        //} else if (auto uniformEmitter = dynamic_cast<UniformE*>(&emitter)) {
+        //    //Same but for UniformE
+        //    std::shared_ptr<UniformE> uniformPtr(new UniformE(*uniformEmitter));           
+        //    uniformPtr->setParticles(createParticles());            
+        //    emitters.push_back(uniformPtr);
 
-        } else if (auto uniformEmitter = dynamic_cast<UniformE*>(&emitter)) {
-            //Same but for UniformE
-            std::shared_ptr<UniformE> uniformPtr(new UniformE(*uniformEmitter));           
-            uniformPtr->setParticles(createParticles());            
-            emitters.push_back(uniformPtr);
+        //} else if (auto coneEmitter = dynamic_cast<ConeE*>(&emitter)) {
+        //    //Same but for coneE
+        //    std::shared_ptr<ConeE> conePtr(new ConeE(*coneEmitter));          
+        //    conePtr->setParticles(createParticles());           
+        //    emitters.push_back(conePtr);
 
-        } else if (auto coneEmitter = dynamic_cast<ConeE*>(&emitter)) {
-            //Same but for coneE
-            std::shared_ptr<ConeE> conePtr(new ConeE(*coneEmitter));          
-            conePtr->setParticles(createParticles());           
-            emitters.push_back(conePtr);
-
-        } else {
-            // 'emitter' is not an instance of any of the three classes
-            // do something else...
-        }
+        //} else {
+        //    // 'emitter' is not an instance of any of the three classes
+        //    // do something else...
+        //}
     }
 
 
 
-  void addEffect(Effect& effect) {
-        if (auto effectB = dynamic_cast<EffectB*>(&effect)) {
-            //Works the same as addEmitter()
-            std::shared_ptr<EffectB> blackHolePointer(new EffectB(*effectB));
-            effects.push_back(blackHolePointer);
+  void addEffect(Effect* effect) {
+        effects.push_back(effect);
+        //if (auto effectB = dynamic_cast<EffectB*>(&effect)) {
+        //    //Works the same as addEmitter()
+        //    std::shared_ptr<EffectB> blackHolePointer(new EffectB(*effectB));
+        //    effects.push_back(blackHolePointer);
 
-        } else if (auto effectW = dynamic_cast<EffectW*>(&effect)) {
-            
-            std::shared_ptr<EffectW> windPointer(new EffectW(*effectW));
-            effects.push_back(windPointer);
-        } else {
-            // 'effect' is not an instance of any known effect class
-            // do something else...
-        }
+        //} else if (auto effectW = dynamic_cast<EffectW*>(&effect)) {
+        //    
+        //    std::shared_ptr<EffectW> windPointer(new EffectW(*effectW));
+        //    effects.push_back(windPointer);
+        //} else {
+        //    // 'effect' is not an instance of any known effect class
+        //    // do something else...
+        //}
     }
     
     void render(rendering::Window& window, const double dt) {
@@ -85,6 +87,7 @@ public:
 
 
     private:
+
 
        void updatePos(const double dt) {
         // iterate over all emitters
@@ -132,7 +135,7 @@ public:
 
     std::vector<Particle> createParticles() {
         // set the number of particles to create
-        const size_t num_particles = 100;
+        const size_t num_particles = 200;
 
         // initialize vectors to store particle properties
         std::vector<float> size(num_particles);       // size of each particle
@@ -161,9 +164,9 @@ public:
         }
 
     
-    std::vector<std::shared_ptr<Emitter>> emitters;
+    std::vector<Emitter*> emitters;
     
-    std::vector<std::shared_ptr<Effect>> effects;
+    std::vector<Effect*> effects;
     
 
 

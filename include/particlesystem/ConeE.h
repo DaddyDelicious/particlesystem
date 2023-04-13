@@ -6,7 +6,7 @@
 class ConeE : public Emitter{
 	
 	public:
-        ConeE(glm::vec2 position = { 0.0f, 0.0f }, glm::vec2 force = { 1.0f, 1.0f }, float spawnRate = 0.05f, float angle = 40.0f)
+        ConeE(glm::vec2 position = { 0.0f, 0.0f }, glm::vec2 force = { 1.0f, 1.0f }, float spawnRate = 0.1f, float angle = 40.0f)
             : Emitter(position, force, spawnRate), coneAngleDeg{ angle }
         {
         }
