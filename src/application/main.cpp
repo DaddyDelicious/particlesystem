@@ -10,6 +10,7 @@
 
 #include <particlesystem/particle.h>
 #include <particlesystem/emitter.h>
+#include <particlesystem/SpiralE.h>
 
 
 int main(int, char**) try {
@@ -26,18 +27,20 @@ int main(int, char**) try {
     UniformE* emitter1 = new UniformE{glm::vec2{-0.9f,0.0f}};
     ExplosionE* emitter2 = new ExplosionE{glm::vec2{0.0f, -0.1f},false};
     ConeE* emitter3 = new ConeE{glm::vec2{0.0f, -0.5f}};
+    SpiralE* emitter4 = new SpiralE{glm::vec2{0.0f, 0.0f}};
 
-    EffectB* effect1 = new EffectB{glm::vec2{0.5f, -0.5f}};
-    EffectW* effect2 = new EffectW{glm::vec2{0.0f, 0.6f}, glm::vec2{-10.1f, 0.0f}};
+    //EffectB* effect1 = new EffectB{glm::vec2{0.5f, -0.5f}};
+    //EffectW* effect2 = new EffectW{glm::vec2{0.0f, 0.6f}, glm::vec2{-10.1f, 0.0f}};
     
 
-    particleSystem.addEmitter(emitter1);
+   /* particleSystem.addEmitter(emitter1);
     particleSystem.addEmitter(emitter2);
-    particleSystem.addEmitter(emitter3);
-  
+    particleSystem.addEmitter(emitter3);*/
+    particleSystem.addEmitter(emitter4);
+  /*
     particleSystem.addEffect(effect1);
     particleSystem.addEffect(effect2);
-   
+   */
    
  
     while (running) {

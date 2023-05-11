@@ -5,9 +5,9 @@
 #include <algorithm>
 #include <random>
 
-float rnd() { return rand() / static_cast<float>(RAND_MAX); }
+float rnd();
 
-float srnd() { return rnd() * 2.0f - 1.0f; }
+float srnd();
 
 
 class Emitter {
@@ -35,6 +35,9 @@ public:
 
     std::vector<Particle>& getParticles() { return particles; }
   
+    std::vector<Particle>& getParticlesLoaded() { return particlesloaded; }
+
+
     void setParticles(std::vector<Particle> particlesArg) 
     { 
         for (Particle e: particlesArg) {

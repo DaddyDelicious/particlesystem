@@ -16,6 +16,7 @@
 class Particlesystem {
 public:
    
+    std::vector<Emitter*> getEmitters() { return emitters; }
 
     void addEmitter(Emitter* emitter) {
 
